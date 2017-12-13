@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 const anuncioSchema = mongoose.Schema({
   nombre: { type: String, index: true },
