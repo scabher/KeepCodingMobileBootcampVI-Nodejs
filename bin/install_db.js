@@ -1,25 +1,24 @@
 #!/usr/bin/env node
 
+const mongooseConn = require('../lib/connect_mongoose');
+const crypto = require('crypto');
+
 // Modelos de Mongoose
 const Anuncio = require('../models/Anuncio');
 const Usuario = require('../models/Usuario');
 
-const saveHandler = (err, datosGuardados) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
+mongooseConn.on('open', async () => {
+  initializeAnuncios();
+  initializeUsuarios();
+});
 
-  console.log('datosGuardados', datosGuardados);
-}
+async function initializeAnuncios() {
+  try {
+    console.log('\n\nInicializando anuncios...');
 
-function initializeAnuncios() {
-  console.log('Eliminando todos los anuncios existentes...');
-  const removed = Anuncio.remove({}).exec();
-  removed.then((eliminados) => {
+    await Anuncio.remove({}).exec();
     console.log('Se han eliminado correctamente todos los anuncios');
 
-    console.log('Creando nuevos anuncios...');
     // Creación de una colección de anuncios
     for (let i = 0; i < 100; i++) {
       const tags = [];
@@ -33,47 +32,49 @@ function initializeAnuncios() {
         nombre: 'Anuncio' + i,
         venta: i%2 == 0, 
         precio: Math.floor(Math.random() * 5000) + 1, 
-        foto: null, 
+        foto: `img${i}.jpg`, 
         tags: tags
       });
   
-      anuncio.save(saveHandler);  
-    }  
-
-  }).catch((error) => {
-    console.log('Se ha producido un error eliminando todos los anuncios: ', error);
-  });
+      const nuevoAnuncio = await anuncio.save();
+      console.log (`${ i } - Id. nuevo anuncio: `, nuevoAnuncio._id);  
+    }
+  }
+  catch(error) {
+    console.log('Se ha producido un error al inicializar los anuncios: ', error);
+  };
 }
 
-// async function initializeUsuarios() {
-//   try {
-//     console.log('Eliminando todos los usuarios existentes...');
-//     await Usuario.remove({}).exec();
-//     console.log('Se han eliminado correctamente todos los usuarios');
-//   } catch (error) {
-//     console.log('Se ha producido un error eliminando todos los usuarios: ', error);
-//   }
+async function initializeUsuarios() {
+  try {
+    console.log('\n\nInicializando usuarios...');
+    await Usuario.remove({}).exec();
+    console.log('Se han eliminado correctamente todos los usuarios');
+    
+    let hash = crypto.createHash('sha256');
+    const usuario1 = new Usuario({
+      nombre: 'Usuario 1',
+      email: 'usuario1@gmail.com',
+      clave: hash.update('usuario1Clave').digest('base64')
+    });
 
-//   // Creación de 2 usuarios
-//   const usuario1 = new Usuario({
-//     nombre: 'Usuario 1',
-//     email: 'usuario1@gmail.com',
-//     clave: 'usuario1Clave'
-//   });
+    let nuevoUsuario = await usuario1.save();
+    console.log ('Nuevo usuario creado: ', nuevoUsuario.email);
 
-//   usuario1.save(saveHandler); 
+    hash = crypto.createHash('sha256');
+    const usuario2 = new Usuario({
+      nombre: 'Usuario 2',
+      email: 'usuario2@gmail.com',
+      clave: hash.update('usuario2Clave').digest('base64')
+    });
 
-//   const usuario2 = new Usuario({
-//     nombre: 'Usuario 2',
-//     email: 'usuario2@gmail.com',
-//     clave: 'usuario2Clave'
-//   });
-
-//   usuario2.save(saveHandler); 
-// }
-
-initializeAnuncios();
-// initializeUsuarios();
+    nuevoUsuario = await usuario2.save(); 
+    console.log ('Nuevo usuario creado: ', nuevoUsuario.email);
+  } catch (error) {
+    console.log('Se ha producido un error al inicializar los usuarios: ', error);
+  }
+    
+}
 
 
 

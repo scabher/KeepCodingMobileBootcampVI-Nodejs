@@ -22,10 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
 
 // Rutas del API
 app.use('/apiv1/anuncio', require('./routes/apiv1/anuncios'));
+app.use('/apiv1/usuario', require('./routes/apiv1/usuarios'));
 
 // Contenido estático
 app.use(express.static(path.join(__dirname, 'public')));

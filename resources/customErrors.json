@@ -1,0 +1,22 @@
+[
+  {
+    "token" : "USER_NOT_FOUND",
+    "es" : "No se ha encontrado el usuario solicitado",
+    "en" : "Required user not found"
+  },
+  {
+    "token" : "CANNOT_SAVE_USER",
+    "es" : "No se ha podido guardar el usuario",
+    "en" : "Cannot save user"
+  },
+  {
+    "token" : "PASSWORD_IS_MANDATORY",
+    "es" : "Clave es obligatoria",
+    "en" : "Password is mandatory"
+  },
+  {
+    "token" : "EMAIL_ALREADY_EXISTS",
+    "es" : "Este email ya existe",
+    "en" : "This email already exists"
+  }
+]
