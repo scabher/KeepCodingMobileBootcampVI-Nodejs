@@ -1,6 +1,9 @@
 # VIMobileBootCamp_Nodejs
 Práctica de Nodejs para el VI Mobile BootCamp de KeepCoding
 
+## Despliegue
+Copiar .env.example a .env y revisar los valores
+
 # Arranque de la aplicación
 Arrancar el gestor de base de datos de MongoDB: [rutaInstalaciónMongoDB]./bin/mongod --dbpath ./data/db --directoryperdb --port 27020
 

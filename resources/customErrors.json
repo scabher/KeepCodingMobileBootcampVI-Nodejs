@@ -5,14 +5,39 @@
     "en" : "Required user not found"
   },
   {
-    "token" : "CANNOT_SAVE_USER",
-    "es" : "No se ha podido guardar el usuario",
-    "en" : "Cannot save user"
+    "token" : "USER_CANNOT_SAVE",
+    "es" : "No se ha podido guardar el usuario: ",
+    "en" : "User could not be saved: "
+  }, 
+  {
+    "token" : "AUTH_WRONG_CREDENTIALS",
+    "es" : "No se pudo autenticar. Credenciales erróneas",
+    "en" : "Could not authenticate. Wrong credentials"
   },
   {
-    "token" : "PASSWORD_IS_MANDATORY",
-    "es" : "Clave es obligatoria",
-    "en" : "Password is mandatory"
+    "token" : "AUTH_TOKEN_NOT_PROVIDED",
+    "es" : "No existe token de autenticación",
+    "en" : "Authentication token not provided"
+  },
+  {
+    "token" : "AUTH_TOKEN_INVALID",
+    "es" : "Token de autenticación no válido",
+    "en" : "Authentication token not valid"
+  },  
+  {
+    "token" : "AUTH_GENERIC_ERROR",
+    "es" : "Error al autenticar usuario: ",
+    "en" : "Authentication failed: "
+  },
+  {
+    "token" : "CANNOT_SAVE_USER",
+    "es" : "No se ha podido guardar el usuario: ",
+    "en" : "Cannot save user: "
+  },
+  {
+    "token" : "FIELDS_ARE_MANDATORY",
+    "es" : "Todos los campos son obligatoria",
+    "en" : "All fields are mandatory"
   },
   {
     "token" : "EMAIL_ALREADY_EXISTS",
