@@ -10,30 +10,23 @@ const customError = require('../../lib/custom_error');
 const Usuario = require('../../models/Usuario');
 
 /**
+ * POST /usuario
  * Creación de un nuevo usuario
  */
 router.post('/', [
-  body('nombre').isAlpha().not().isEmpty().withMessage('USER_WRONG_EMAIL'),
-  body('email').isEmail().withMessage('FIELDS_ARE_MANDATORY'),
-  body('clave').not().isEmpty('USER_WRONG_EMAIL')
+  body('nombre').not().isEmpty().withMessage('USER_WRONG_NAME'),
+  body('email').isEmail().withMessage('USER_WRONG_EMAIL'),
+  body('clave').not().isEmpty().withMessage('FIELDS_ARE_MANDATORY')
 ], async (req, res, next) => {
   const lang = req.query.lang || 'en';
-
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    // return res.status(422).json({ errors: errors.mapped() });
-    const errorsArray = errors.array();
-    console.log(errorsArray);
-    for (let i = 0; i < errorsArray.length; i++) {
-      const element = errorsArray[i];
-      element.msg = customError.getCustomError(element.msg, lang);
-    }
-    console.log(errorsArray);
-    res.status(422);
-    next(customError.getCustomError('FIELDS_ARE_MANDATORY', lang));
-    return;
-  }
+  const errors = customError.setCustomErrorForValidation(validationResult(req), lang);
     
+  if (!errors.isEmpty()) {
+    res.status(422);
+    next(errors);
+    return;    
+  }
+
   const usuarioExistente = await Usuario.findOne({ email: req.body.email }).exec();
   if (usuarioExistente) {
     next(customError.getCustomError('EMAIL_ALREADY_EXISTS', lang));
@@ -56,12 +49,23 @@ router.post('/', [
   });
 });
 
-router.post('/authenticate', async (req, res, next) => {
+router.post('/authenticate', [
+  body('email').isEmail().withMessage('USER_WRONG_EMAIL'),
+  body('clave').not().isEmpty().withMessage('FIELDS_ARE_MANDATORY')
+], async (req, res, next) => {
   try {
+    const lang = req.query.lang || 'en';
+    const errors = customError.setCustomErrorForValidation(validationResult(req), lang);
+    
+    if (!errors.isEmpty()) {
+      res.status(422);
+      next(errors);
+      return;    
+    }
+    
     // recogemos las redenciales
     const email = req.body.email;
-    const password = req.body.password;
-    const lang = req.query.lang || 'en';
+    const clave = req.body.clave;
 
     // buscamos en la BBDD el usuario
     const usuario = await Usuario.findOne({ email: req.body.email }).exec();
@@ -71,7 +75,7 @@ router.post('/authenticate', async (req, res, next) => {
     }
     
     const hash = crypto.createHash('sha256');
-    if (usuario.clave != hash.update(password).digest('base64')) {
+    if (usuario.clave != hash.update(clave).digest('base64')) {
       next(customError.getCustomError('AUTH_WRONG_CREDENTIALS', lang));
       return;
     }

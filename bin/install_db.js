@@ -8,15 +8,16 @@ const Anuncio = require('../models/Anuncio');
 const Usuario = require('../models/Usuario');
 
 mongooseConn.on('open', async () => {
-  initializeAnuncios();
-  initializeUsuarios();
+  await initializeAnuncios();
+  await initializeUsuarios();
+  mongooseConn.close();
 });
 
 async function initializeAnuncios() {
   try {
     console.log('\n\nInicializando anuncios...');
 
-    await Anuncio.remove({}).exec();
+    await Anuncio.collection.remove();
     console.log('Se han eliminado correctamente todos los anuncios');
 
     // Creación de una colección de anuncios
@@ -32,7 +33,7 @@ async function initializeAnuncios() {
         nombre: 'Anuncio' + i,
         venta: i%2 == 0, 
         precio: Math.floor(Math.random() * 5000) + 1, 
-        foto: `img${i}.jpg`, 
+        foto: `images/anuncios/img${i}.jpg`, 
         tags: tags
       });
   
@@ -48,7 +49,7 @@ async function initializeAnuncios() {
 async function initializeUsuarios() {
   try {
     console.log('\n\nInicializando usuarios...');
-    await Usuario.remove({}).exec();
+    await Usuario.collection.remove();
     console.log('Se han eliminado correctamente todos los usuarios');
     
     let hash = crypto.createHash('sha256');

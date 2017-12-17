@@ -5,6 +5,16 @@
     "en" : "Required user not found"
   },
   {
+    "token" : "USER_WRONG_NAME",
+    "es" : "Nombre de usuario erróneo",
+    "en" : "Wrong user name"
+  },  
+  {
+    "token" : "USER_WRONG_EMAIL",
+    "es" : "Email erróneo",
+    "en" : "Wrong email"
+  }, 
+  {
     "token" : "USER_CANNOT_SAVE",
     "es" : "No se ha podido guardar el usuario: ",
     "en" : "User could not be saved: "
@@ -43,5 +53,45 @@
     "token" : "EMAIL_ALREADY_EXISTS",
     "es" : "Este email ya existe",
     "en" : "This email already exists"
+  },
+  {
+    "token" : "WRONG_MIN_PRICE",
+    "es" : "Precio mínimo erróneo",
+    "en" : "Wrong minimum price"
+  },
+  {
+    "token" : "WRONG_MAX_PRICE",
+    "es" : "Precio máximo erróneo",
+    "en" : "Wrong maximum price"
+  },
+  {
+    "token" : "WRONG_START_INDEX",
+    "es" : "Índice de inicio (start) erróneo",
+    "en" : "Wrong start index"
+  },
+  {
+    "token" : "WRONG_FOR_SALE",
+    "es" : "Es venta/oferta (venta) erróneo",
+    "en" : "Wrong for sale/offer (venta) parameter"
+  },
+  {
+    "token" : "WRONG_TOTAL_COUNT",
+    "es" : "Parámetro incluye total (includeTotal) erróneo",
+    "en" : "Wrong total count (includeTotal) parameter"
+  },
+  {
+    "token" : "ADV_WRONG_NAME",
+    "es" : "Nombre del anuncio erróneo",
+    "en" : "Wrong ad name"
+  },
+  {
+    "token" : "ADV_WRONG_FOR_SALE",
+    "es" : "Tipo de anuncio erróneo",
+    "en" : "Wrong ad type"
+  },
+  {
+    "token" : "ADV_WRONG_PRICE",
+    "es" : "Precio de anuncio erróneo",
+    "en" : "Wrong ad price"
   }
 ]
