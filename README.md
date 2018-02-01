@@ -1,3 +1,8 @@
+# VIMobileBootCamp_Devops
+Ruta de acceso a imagen estática: http://ec2-54-196-56-16.compute-1.amazonaws.com/images/logo.jpg
+Ruta de acceso a plantilla de https://startbootstrap.com: http://54.196.56.16
+
+
 # VIMobileBootCamp_Nodejs
 Práctica de Nodejs para el VI Mobile BootCamp de KeepCoding
 
