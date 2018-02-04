@@ -1,6 +1,8 @@
 # VIMobileBootCamp_Devops
 Ruta de acceso a imagen estática: http://ec2-54-196-56-16.compute-1.amazonaws.com/images/logo.jpg
 Ruta de acceso a plantilla de https://startbootstrap.com: http://54.196.56.16
+Ejemplo de llamada a la API de Node: http://ec2-54-196-56-16.compute-1.amazonaws.com/apiv1/usuario/authenticate?lang=en
+
 ## Pasos para realizar la práctica
 1. Instancia en servidor (panel de control de AWS en este caso)
 	* Crear la instancia en el servidor
