@@ -1,6 +1,34 @@
 # VIMobileBootCamp_Devops
 Ruta de acceso a imagen estática: http://ec2-54-196-56-16.compute-1.amazonaws.com/images/logo.jpg
 Ruta de acceso a plantilla de https://startbootstrap.com: http://54.196.56.16
+## Pasos para realizar la práctica
+1. Instancia en servidor (panel de control de AWS en este caso)
+	* Crear la instancia en el servidor
+	* Comprobar que los puertos 80 y 22 están habilitados en el Firewall de AWS
+	* Cambiar la configuración del puerto ssh para que sea otro distinto al 22
+* Instalar nvm y node (como usuario con permisos root)
+* Crear un usuario restringido 'node' para la aplicación que queremos desplegar (la de este repositorio en este caso)
+* Descargar/clonar el código de la aplicación donde se quiera desplegar (home del usuario 'node' en este caso).
+* Descargar de https://startbootstrap.com/ y copiar al servidor la web estática para mostrarla cuando se acceda por IP (usando comando scp y al home del usuario ubuntu, con privilegios de root).
+* Mover la carpeta con la web estática a /var/www/public
+* MongoDB:
+	* Instalar MongoDb (cliente y servidor) [Guía de Instalación Mongo en Ubuntu](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/                                                                                                                                     )
+	* Cambiar al puerto usado por nodepop en /etc/mongod.conf
+	* Configurar mongo para que se arranque cada vez que se reinicie el sistema (sudo systemctl enable mongod)
+* Nginx:
+	* Instalar Nginx en la instancia del servidor (como usuario con permisos root)
+	* Añadir la configuración de Nginx para las aplicaciones:
+		* En /etc/nginx/sites-available:
+			* [nodepop](./DevOps-files/node)
+			* [sch-web](./DevOps-files/sch-web)
+		* Crear los enlaces a ambos ficheros en /etc/nginx/sites-enabled usando comando ln 
+* PM2:
+	* Instalar PM2 en la instancia del servidor
+	* Crea el fichero de configuración de PM2 en el home del usuario '*node*': [ecosystem.config.js](./DevOps-files/ecosystem.config.js)
+	* Ejecutar *pm2 save*
+	* Ejecutar *pm2 startup ecosystem.config.js*
+	* Copiar y ejecutar el comando devuelto como usuario ubuntu.
+
 
 
 # VIMobileBootCamp_Nodejs
